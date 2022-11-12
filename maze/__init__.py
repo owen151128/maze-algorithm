@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from random import randint
+from collections import deque
 
 
 class MazeGenerator(object):
@@ -40,3 +43,58 @@ class MazeGenerator(object):
         maze[goal_y][goal_x] = 2
 
         return maze
+
+
+class MazeExplorer:
+    # Move array for BFS Algorithm
+    bfs_move_list = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+    @staticmethod
+    def get_max_distance(maze: list):
+        wall_count = 0
+        for x in maze:
+            wall_count += x.count(1)
+
+        return 12 * 12 - wall_count - 1
+
+    # Derives the correct answer using the BFS (Breadth First Search) algorithm
+    # Returns : answer_post_list, list's size
+    @staticmethod
+    def get_answer_pos_list(maze: list, max_distance: int) -> (list, int):
+        y, x, distance, move_list = 1, 1, 0, [(1, 1)]
+        while maze[y][x] != 2:
+            deq = deque()
+            deq.append((y, x, distance, [(1, 1)]))
+            while deq:
+                y, x, distance, move_list = deq.popleft()
+
+                # Did you find the goal?
+                if maze[y][x] == 2:
+                    break
+
+                # Exceeding the maximum distance?
+                if distance > max_distance:
+                    continue
+
+                for move_y, move_x in MazeExplorer.bfs_move_list:
+                    destination_y, destination_x = y + move_y, x + move_x
+
+                    # Get out of the maze?
+                    if destination_y < 1 or destination_x < 1 or destination_y >= 11 or destination_x >= 11:
+                        continue
+
+                    # Is the coordinate you want to move to 1 (wall)?
+                    if maze[destination_y][destination_x] == 1:
+                        continue
+
+                    # Is it the coordinates you visited?
+                    if (destination_y, destination_x) in move_list:
+                        continue
+
+                    # Save the moved coordinate list
+                    # Using slice for list deep copy
+                    current_move_list = move_list[:]
+                    current_move_list.append((destination_y, destination_x))
+                    deq.append((destination_y, destination_x, distance + 1, current_move_list))
+
+        return move_list, len(move_list)
