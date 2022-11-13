@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-
 from turtle import hideturtle, speed, penup, goto, pendown, fillcolor, begin_fill, forward, right, end_fill, pencolor, \
-    showturtle, shape
+    showturtle, shape, title
 
 
 class MazeCanvas:
@@ -9,6 +8,7 @@ class MazeCanvas:
 
     @staticmethod
     def draw_maze(maze: list):
+        title('Maze Algorithm')
         hideturtle()
         speed('fastest')
         penup()
