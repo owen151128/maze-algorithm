@@ -4,6 +4,8 @@ from maze import MazeGenerator
 from maze import MazeExplorer
 from gui import MazeCanvas
 
+import turtle
+
 
 def main():
     # Input maze level from user(only input 1 ~ 4, add validation input)
@@ -50,6 +52,7 @@ def main():
     MazeCanvas.draw_maze(maze)
     MazeCanvas.move_character(answer_pos_list)
     MazeCanvas.move_character(list(reversed(answer_pos_list)))
+    turtle.exitonclick()
 
 
 if __name__ == '__main__':
