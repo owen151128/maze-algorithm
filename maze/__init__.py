@@ -8,6 +8,13 @@ class MazeGenerator(object):
     # array of top, bottom, right coordinates
     UP_DOWN_RIGHT_LIST = [(0, -1), (1, 0), (0, 1)]
 
+    @staticmethod
+    def print_maze(maze: list):
+        for i in maze:
+            for j in i:
+                print(j, end='\t')
+            print()
+
     # A function that creates and returns a 12 x 12 maze as a two-dimensional array
     @staticmethod
     def create_maze() -> list:
