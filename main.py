@@ -11,7 +11,11 @@ def main():
     # Input maze level from user(only input 1 ~ 4, add validation input)
     while True:
         try:
-            level = int(input('Input maze level(1: easy, 2: normal, 3: difficult 4: exit : '))
+            level = int(input('''Input maze level
+            1: easy
+            2: normal
+            3: difficult
+            4: exit : '''))
             if 0 < level < 5:
                 break
         except ValueError:
